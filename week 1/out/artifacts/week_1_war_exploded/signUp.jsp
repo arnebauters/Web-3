@@ -17,6 +17,8 @@
             <ul>
                 <li><a href="Controller">Home</a></li>
                 <li><a href="Controller?action=overview">Overview</a></li>
+                <li><a href="Controller?action=productoverview">Products</a></li>
+                <li><a href="Controller?action=formproduct">Add product</a></li>
                 <li id="actual"><a href="Controller?action=signUp">Sign up</a></li>
             </ul>
         </nav>
@@ -36,7 +38,7 @@
             </div>
         </c:if>
 
-        <form method="post" action="Controller?action=add" novalidate="novalidate">
+        <form method="post" action="Controller?action=adduser" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
             <p class=${userid}><label for="userid">User id</label><input type="text" id="userid" name="userid"
                                                          required <c:if test="${waardeuserid!=null}"> value=${waardeuserid}</c:if> ></p>

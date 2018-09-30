@@ -15,33 +15,34 @@
         <nav>
             <ul>
                 <li><a href="Controller">Home</a></li>
-                <li id="actual"><a href="Controller?action=overview">Overview</a></li>
-                <li><a href="Controller?action=productoverview">Products</a></li>
+                <li ><a href="Controller?action=overview">Overview</a></li>
+                <li id="actual"><a href="Controller?action=productoverview">Products</a></li>
                 <li><a href="Controller?action=formproduct">Add product</a></li>
                 <li><a href="Controller?action=signUp">Sign up</a></li>
+
             </ul>
         </nav>
         <h2>
-            User Overview
+            Product Overview
         </h2>
 
     </header>
     <main>
         <table>
             <tr>
-                <th>E-mail</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Price</th>
             </tr>
-            <c:forEach var="person" items="${lijst}">
-            <tr>
-                <td>${person.email}</td>
-                <td>${person.firstName}</td>
-                <td>${person.lastName}</td>
-                <td><a href="Controller?action=delete&fiets=none&person=${person.userid}">Verwijder</a></td>
-            </tr>
+            <c:forEach var="fiets" items="${products}">
+                <tr>
+                    <td><a href="Controller?action=aanpassen&naam=${fiets.naam}">${fiets.naam}</a></td>
+                    <td>${fiets.merk}</td>
+                    <td>${fiets.prijs}</td>
+                    <td><a href="Controller?action=delete&fiets=${fiets.naam}&person=none">Verwijder</a></td>
+                </tr>
             </c:forEach>
-            <caption>Users Overview</caption>
+            <caption>Products Overview</caption>
         </table>
     </main>
     <footer>

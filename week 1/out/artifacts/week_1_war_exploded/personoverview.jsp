@@ -16,6 +16,8 @@
             <ul>
                 <li><a href="Controller">Home</a></li>
                 <li id="actual"><a href="Controller?action=overview">Overview</a></li>
+                <li><a href="Controller?action=productoverview">Products</a></li>
+                <li><a href="Controller?action=formproduct">Add product</a></li>
                 <li><a href="Controller?action=signUp">Sign up</a></li>
             </ul>
         </nav>
@@ -36,6 +38,7 @@
                 <td>${person.email}</td>
                 <td>${person.firstName}</td>
                 <td>${person.lastName}</td>
+                <td><a href="Controller?action=delete&fiets=none&person=${person.userid}">Verwijder</a></td>
             </tr>
             </c:forEach>
             <caption>Users Overview</caption>

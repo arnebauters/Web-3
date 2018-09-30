@@ -4,6 +4,10 @@
 	padding: 0;
 }
 
+span{
+	color:#f3dc04;
+}
+
 body {
 	font-family: arial,sans-serif;
 	font-size: 90%;
@@ -53,8 +57,8 @@ h2, main, footer {
 }
 
 h1 {
-	background-image: url("../images/bannerKlein.png");
-	height: 100px;
+	background-image: url("../images/wielen.png");
+	height: 300px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	position: relative;
@@ -144,7 +148,7 @@ input {
 	max-width: 1000px;
 	}
 	h1 {
-	background-image: url("../images/banner.png");
+	background-image: url("../images/fiets.png");
 	}
 	
 	nav ul {
