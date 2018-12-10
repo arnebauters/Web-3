@@ -1,5 +1,7 @@
 package domain.model;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,15 +11,35 @@ public class Person {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private Role rol;
 
-	public Person(String userid, String email, String password, String firstName, String lastName) {
+	public Person(String userid, String email, String password, String firstName, String lastName, Role role) {
+		setUserid(userid);
+		setEmail(email);
+		setPassword(password);
+		setFirstName(firstName);
+		setLastName(lastName);
+		setRole(role);
+	}
+	public Person(String userid, String email, String password, String firstName, String lastName){
 		setUserid(userid);
 		setEmail(email);
 		setPassword(password);
 		setFirstName(firstName);
 		setLastName(lastName);
 	}
-	
+
+	public void setRole(Role role) {
+		if (role == null){
+			throw new DomainException("Geef een rol mee.");
+		}
+		this.rol = role;
+	}
+
+	public Role getRole(){
+		return this.rol;
+	}
+
 	public Person() {
 	}
 
@@ -53,7 +75,7 @@ public class Person {
 		return email;
 	}
 	
-	private String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	
@@ -61,7 +83,8 @@ public class Person {
 		if(password.isEmpty()){
 			throw new DomainException("No password given");
 		}
-		return getPassword().equals(password);
+		String passCompare = hashPassword(password);
+		return this.password.equals(passCompare);
 	}
 
 	public void setPassword(String password) {
@@ -70,6 +93,34 @@ public class Person {
 		}
 		this.password = password;
 	}
+
+	public void setPasswordHashed(String password) {
+        if (password == null || password.trim().isEmpty()){
+        	throw new DomainException("No password given.");
+		}
+		this.password = hashPassword(password);
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest crypt = MessageDigest.getInstance("SHA-512");
+
+            crypt.reset();
+
+            byte[] passwordBytes = password.getBytes("UTF-8");
+            crypt.update(passwordBytes);
+
+            byte[] digest = crypt.digest();
+
+            BigInteger digestAsBigInteger = new BigInteger(1, digest);
+
+            return digestAsBigInteger.toString(16);
+
+        }catch (Exception e){
+            throw new DomainException(e.getMessage(), e);
+        }
+    }
+
 
 	public String getFirstName() {
 		return firstName;
@@ -96,5 +147,6 @@ public class Person {
 	@Override
 	public String toString(){
 		return getFirstName() + " " + getLastName() + ": " + getUserid() + ", " + getEmail();
-	}	
+	}
+
 }

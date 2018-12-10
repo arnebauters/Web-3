@@ -11,32 +11,20 @@
 </head>
 <body>
 <div id="container">
-    <header>
-        <h1>
-            <span>Web shop</span>
-        </h1>
-        <nav>
-            <ul>
-                <li><a href="Controller">Home</a></li>
-                <li><a href="Controller?action=overview">Overview</a></li>
-                <li><a href="Controller?action=productoverview">Products</a></li>
-                <li><a href="Controller?action=formproduct">Add product</a></li>
-                <li><a href="Controller?action=signUp">Sign up</a></li>
-            </ul>
-        </nav>
-        <h2>Bevestiging te verwijderen gegevens</h2>
-
-    </header>
+    <jsp:include page="header.jsp">
+        <jsp:param name="title" value="Bevestiging te verwijderen gegevens"/>
+    </jsp:include>
     <c:choose>
-        <c:when test="${fiets.naam!=null}">
-            <p>Naam: ${fiets.naam}</p>
+        <c:when test="${fiets.productId!=null}">
+            <p>Naam: <c:out value="${fiets.naam}"/></p>
+            <p>ProductId: <c:out value="${fiets.productId}"/></p>
         </c:when>
         <c:otherwise>
-            <p>Persoon: ${person.userid}</p>
+            <p>Persoon: <c:out value="${person.userid}"/></p>
         </c:otherwise>
     </c:choose>
     <p>Wil je hiermee doorgaan?</p>
-    <form method="post" action="Controller?action=deleteconfirmed&fiets=${fiets.naam}&person=${person.userid}"
+    <form method="post" action="Controller?action=DeleteConfirmed&productId=<c:out value="${fiets.productId}"/>&person=<c:out value="${person.userid}"/>"
           novalidate="novalidate">
         <!-- novalidate in order to be able to run tests correctly -->
 

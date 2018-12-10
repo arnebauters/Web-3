@@ -11,22 +11,9 @@
 </head>
 <body>
 <div id="container">
-    <header>
-        <h1><span>Web shop</span></h1>
-        <nav>
-            <ul>
-                <li><a href="Controller">Home</a></li>
-                <li><a href="Controller?action=overview">Overview</a></li>
-                <li><a href="Controller?action=productoverview">Products</a></li>
-                <li><a href="Controller?action=formproduct">Add product</a></li>
-                <li id="actual"><a href="Controller?action=signUp">Sign up</a></li>
-            </ul>
-        </nav>
-        <h2>
-            Sign Up
-        </h2>
-
-    </header>
+    <jsp:include page="header.jsp">
+        <jsp:param name="title" value="Sign up"/>
+    </jsp:include>
     <main>
         <c:if test="${errors!=null}">
             <div class="alert-danger">
@@ -38,18 +25,25 @@
             </div>
         </c:if>
 
-        <form method="post" action="Controller?action=adduser" novalidate="novalidate">
+        <form method="post" action="Controller?action=AddUser" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
-            <p class=${userid}><label for="userid">User id</label><input type="text" id="userid" name="userid"
-                                                         required <c:if test="${waardeuserid!=null}"> value=${waardeuserid}</c:if> ></p>
-            <p class=${firstName}><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName"
-                                                               required <c:if test="${waardeuserid!=null}"> value=${waardefirstName}</c:if>></p>
-            <p class=${lastName}><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName"
-                                                             required <c:if test="${waardelastName!=null}"> value=${waardelastName}</c:if>></p>
-            <p class=${email}><label for="email">Email</label><input type="email" id="email" name="email" required <c:if test="${waardeemail!=null}"> value=${waardeemail}</c:if>></p>
+            <p class=${userid}><label for="userid">User id</label>
+                <input type="text" id="userid" name="userid" required <c:if test="${waardeuserid!=null}"> value="<c:out value="${waardeuserid}"/>" </c:if>></p>
 
-            <p><label for="password">Password</label><input type="password" id="password" name="password"
-                                                            required ></p>
+            <p class=${firstName}><label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required <c:if test="${waardeuserid!=null}"> value ="<c:out value='${waardefirstName}'/>"</c:if>></p>
+
+            <p class=${lastName}><label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required <c:if test="${waardelastName!=null}"> value ="<c:out value='${waardelastName}'/>"</c:if>></p>
+
+            <p class=${email}><label for="email">Email</label>
+                <input type="email" id="email" name="email" required <c:if test="${waardeemail!=null}"> value="<c:out value='${waardeemail}'/>"</c:if>></p>
+
+            <p><label for="password">Password</label><input type="password" id="password" name="password" required ></p>
+            <c:if test="${name.role == 'ADMIN'}">
+                <p><input type="radio" name="role" value="ADMIN"> Admin</p>
+                <p><input type="radio" name="role" value="CUSTOMER"> Customer</p>
+            </c:if>
             <p><input type="submit" id="signUp" value="Sign Up"></p>
 
         </form>

@@ -11,22 +11,9 @@
 </head>
 <body>
 <div id="container">
-    <header>
-        <h1><span>Web shop</span></h1>
-        <nav>
-            <ul>
-                <li><a href="Controller">Home</a></li>
-                <li><a href="Controller?action=overview">Overview</a></li>
-                <li><a href="Controller?action=productoverview">Products</a></li>
-                <li><a href="Controller?action=formproduct">Add product</a></li>
-                <li><a href="Controller?action=signUp">Sign up</a></li>
-            </ul>
-        </nav>
-        <h2>
-            Update a bike
-        </h2>
-
-    </header>
+    <jsp:include page="header.jsp">
+        <jsp:param name="title" value="Update a bike"/>
+    </jsp:include>
     <main>
         <c:if test="${errors!=null}">
             <div class="alert-danger">
@@ -38,14 +25,14 @@
             </div>
         </c:if>
         <p>Vul volgende velden in om ${fiets.naam} aan te passen.</p>
-        <form method="post" action="Controller?action=updateconfirmed&naam=${fiets.naam}" novalidate="novalidate">
+        <form method="post" action="Controller?action=UpdateConfirmed&productId=${fiets.productId}" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
             <p class=${Name}><label for="Name">Name</label><input type="text" id="Name" name="Name"
-                                                                  required value=${fiets.naam}></p>
+                                                                  required value="<c:out value="${fiets.naam}"/>"></p>
             <p class=${Brand}><label for="Brand">Brand</label><input type="text" id="Brand" name="Brand"
-                                                                     required value=${fiets.merk}></p>
+                                                                     required value="<c:out value="${fiets.merk}"/>"></p>
             <p class=${Price}><label for="Price">Price</label><input type="number" id="Price" name="Price"
-                                                                     required value=${fiets.prijs}></p>
+                                                                     required value="<c:out value="${fiets.prijs}"/>"></p>
             <p><input type="submit" id="updatebike" value="Update bike"></p>
 
         </form>

@@ -10,38 +10,48 @@
 </head>
 <body>
 <div id="container">
-    <header>
-        <h1><span>Web shop</span></h1>
-        <nav>
-            <ul>
-                <li><a href="Controller">Home</a></li>
-                <li ><a href="Controller?action=overview">Overview</a></li>
-                <li id="actual"><a href="Controller?action=productoverview">Products</a></li>
-                <li><a href="Controller?action=formproduct">Add product</a></li>
-                <li><a href="Controller?action=signUp">Sign up</a></li>
-
-            </ul>
-        </nav>
-        <h2>
-            Product Overview
-        </h2>
-
-    </header>
+    <jsp:include page="header.jsp">
+        <jsp:param name="title" value="Overview products"/>
+    </jsp:include>
     <main>
+        <p>De duurste fiets is: ${duurste.naam} ${duurste.merk}</p>
+        <c:if test="${errors!=null}">
+            <div class="alert-danger">
+                <ul>
+                    <c:forEach var="error" items="${errors}">
+                        <li>${error}</li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </c:if>
+        <c:if test="${message!=null}"><p class="succes">${message}</p></c:if>
         <table>
             <tr>
+                <th>Product ID</th>
                 <th>Name</th>
                 <th>Brand</th>
                 <th>Price</th>
             </tr>
             <c:forEach var="fiets" items="${products}">
                 <tr>
-                    <td><a href="Controller?action=aanpassen&naam=${fiets.naam}">${fiets.naam}</a></td>
-                    <td>${fiets.merk}</td>
-                    <td>${fiets.prijs}</td>
-                    <td><a href="Controller?action=delete&fiets=${fiets.naam}&person=none">Verwijder</a></td>
+                    <td><c:if test="${name.role == 'ADMIN'}">
+                        <a href="Controller?action=Aanpassen&productId=${fiets.productId}"></a>
+                                </c:if>${fiets.productId}</td>
+                    <td><c:out value="${fiets.naam}"/></td>
+                    <td><c:out value="${fiets.merk}"/></td>
+                    <td><c:out value="${fiets.prijs}"/></td>
+                    <c:if test="${name.role == 'ADMIN'}">
+                    <td><a href="Controller?action=Delete&fiets=<c:out value="${fiets.productId}"/>&person=none">Verwijder</a></td>
+                    </c:if>
+                    <form method="post" action="Controller?action=AddBasket&fiets=<c:out value="${fiets.productId}"/>">
+                    <td><input type="number" id="aantal" name="aantal" value="1"></td>
+                    <td><input type="submit" id="add" value="Add to shopping cart"></td>
+                    </form>
                 </tr>
             </c:forEach>
+            <c:if test="${size!= null}">
+                <p>Items in shopping cart: ${size}</p>
+            </c:if>
             <caption>Products Overview</caption>
         </table>
     </main>

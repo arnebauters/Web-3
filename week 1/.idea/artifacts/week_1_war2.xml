@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="week 1:war2">
+    <output-path>$PROJECT_DIR$/out/artifacts/week_1_war2</output-path>
+    <root id="archive" name="week 1_war.war">
+      <element id="artifact" artifact-name="week 1:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/../../selenium-server-standalone-3.14.0.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

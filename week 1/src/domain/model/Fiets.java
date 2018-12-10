@@ -26,7 +26,7 @@ public class Fiets {
 	public int getProductId() {
 		return productId;
 	}
-	public void setProductId(int productId) {
+	protected void setProductId(int productId) {
 		this.productId = productId;
 	}
 

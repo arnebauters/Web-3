@@ -10,36 +10,39 @@
 </head>
 <body>
 <div id="container">
-    <header>
-        <h1><span>Web shop</span></h1>
-        <nav>
-            <ul>
-                <li><a href="Controller">Home</a></li>
-                <li id="actual"><a href="Controller?action=overview">Overview</a></li>
-                <li><a href="Controller?action=productoverview">Products</a></li>
-                <li><a href="Controller?action=formproduct">Add product</a></li>
-                <li><a href="Controller?action=signUp">Sign up</a></li>
-            </ul>
-        </nav>
-        <h2>
-            User Overview
-        </h2>
-
-    </header>
+    <jsp:include page="header.jsp">
+        <jsp:param name="title" value="Person overview"/>
+    </jsp:include>
     <main>
+        <form method="POST" action="Controller?action=SortOverview">
+            <select name="sort">
+               <option value="firstname" <c:if test="${sorteer == 'firstname'}"> selected </c:if> >FirstName</option>
+                <option value="lastname" <c:if test="${sorteer == 'lastname'}"> selected </c:if> >LastName</option>
+                <option value="email" <c:if test="${sorteer == 'email'}"> selected </c:if> >Email</option>
+            </select>
+            <input class="option" type="submit" value="Query verzenden">
+        </form>
         <table>
             <tr>
+                <th>UserName</th>
                 <th>E-mail</th>
                 <th>First Name</th>
                 <th>Last Name</th>
             </tr>
             <c:forEach var="person" items="${lijst}">
-            <tr>
-                <td>${person.email}</td>
-                <td>${person.firstName}</td>
-                <td>${person.lastName}</td>
-                <td><a href="Controller?action=delete&fiets=none&person=${person.userid}">Verwijder</a></td>
-            </tr>
+                <tr>
+                    <td><c:out value="${person.userid}"/></td>
+                    <td><c:out value="${person.email}"/></td>
+                    <td><c:out value="${person.firstName}"/></td>
+                    <td><c:out value="${person.lastName}"/></td>
+                    <c:if test="${name.role == 'ADMIN'}">
+                    <td>
+                        <a href="Controller?action=Delete&fiets=none&person=<c:out value="${person.userid}"/>">Verwijder</a>
+                    </td>
+                    </c:if>
+                    <td><a href="Controller?action=Password&person=<c:out value="${person.userid}"/>">Check Password</a>
+                    </td>
+                </tr>
             </c:forEach>
             <caption>Users Overview</caption>
         </table>

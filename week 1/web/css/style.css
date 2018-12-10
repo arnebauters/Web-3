@@ -8,6 +8,29 @@ span{
 	color:#f3dc04;
 }
 
+.pay{
+margin-bottom: 5px;
+}
+.pay input[type=submit]{
+	margin: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.aantal{
+	padding: 0px;
+}
+.quantity {
+	background-color: #ECECEC;
+	padding: 5px;
+
+}
+
+header a {
+	float: right;
+	margin-right: 20px;
+}
+
 body {
 	font-family: arial,sans-serif;
 	font-size: 90%;
@@ -116,6 +139,12 @@ input,textarea {
     box-shadow: inset 0px 1px 4px #d59392;
 }
 
+.succes {
+    color: green;
+    border-color: green;
+    box-shadow:inset 0px 1px 4px greenyellow ;
+}
+
 
 /* mobile first */
 div#container {
@@ -144,6 +173,15 @@ input {
 
 /* desktop */
 @media screen and (min-width: 650px) {
+	select{
+		padding: 6px 16px;
+		background-color: #b99703;
+	}
+	.option{
+		margin-left: 50px;
+		padding: 20px 20px;
+		background-color: #b99703;
+	}
 	div#container {
 	max-width: 1000px;
 	}
