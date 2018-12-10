@@ -31,21 +31,23 @@ public class AddBasket extends RequestHandler {
         if (errors.size() == 0) {
             Fiets fiets = getService().getFiets(id);
             HttpSession session = request.getSession();
-            HashMap<String, String> shoppingcart = new HashMap<>();
+            HashMap<Integer, Fiets> shoppingcart = new HashMap<>();
+            HashMap<Integer, Integer> aantalFietsen = new HashMap<>();
 
             if (session.getAttribute("shoppingcart") != null) {
-                shoppingcart = (HashMap<Fiets, Integer>) session.getAttribute("shoppingcart");
+                shoppingcart = (HashMap<Integer, Fiets>) session.getAttribute("shoppingcart");
+                aantalFietsen = (HashMap<Integer, Integer>) session.getAttribute("aantalfietsen");
             }
-            int aantalFietsen = shoppingcart.get()
-            shoppingcart.put(fiets, aantal);
+            shoppingcart.put(id, fiets);
+            aantalFietsen.put(id, aantal);
             session.setAttribute("shoppingcart", shoppingcart);
+            session.setAttribute("aantalfietsen", aantalFietsen);
             response.sendRedirect("Controller?action=ProductOverview");
             return "productoverview.jsp";
         }else {
-            request.setAttribute("errors", errors);
-            RequestDispatcher view = request.getRequestDispatcher("Controller?action=ProductOverview");
-            view.forward(request, response);
-            //response.sendRedirect("Controller?action=ProductOverview");
+            HttpSession session = request.getSession();
+            session.setAttribute("errors", errors);
+            response.sendRedirect("Controller?action=ProductOverview");
             return "productoverview.jsp";
         }
     }

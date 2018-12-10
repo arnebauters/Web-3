@@ -15,7 +15,7 @@
     </jsp:include>
     <main>
         <c:choose>
-            <c:when test="${sessionScope.cart == null || sessionScope.cart.isEmpty()}">
+            <c:when test="${sessionScope.shoppingcart == null || sessionScope.shoppingcart.isEmpty()}">
                 <p>Your Shopping Cart is empty.</p>
         </c:when>
         <c:otherwise>
@@ -26,17 +26,18 @@
                     <th>Price</th>
                     <th>QTY</th>
                 </tr>
-                <c:forEach var="fiets" items="${sessionScope.cart}">
+                <c:forEach var="set" items="${sessionScope.cart}">
                     <tr>
-                        <td>${fiets.naam}</td>
-                        <td>${fiets.merk}</td>
-                        <td>${fiets.prijs}</td>
-                        <td><input type="number" id="aantal" name="aantal" value=${aantal} required></td>
-                        <td><a href="Controller?action=DeleteFromBasket&fiets=${fiets.productId}">Verwijder</a></td>
+                        <td>${set.key.naam}</td>
+                        <td>${set.key.merk}</td>
+                        <td>${set.key.prijs}</td>
+                        <td>${set.value}</td>
+                        <td><a href="Controller?action=DeleteFromBasket&fiets=${set.key.productId}">Verwijder</a></td>
                     </tr>
                 </c:forEach>
                 <caption>Cart oveview</caption>
             </table>
+            <br>
             <p>Total price: ${TotalPrice}</p>
             <br>
             <p>Items: ${size}</p>

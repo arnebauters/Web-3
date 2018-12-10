@@ -15,14 +15,15 @@ public class DeleteFromBasket extends RequestHandler {
         int id = Integer.parseInt(request.getParameter("fiets"));
         Fiets fiets = getService().getFiets(id);
         HttpSession session = request.getSession();
+       // HashMap<Fiets, Integer> shoppingcart = new HashMap<>();
         HashMap<Integer, Fiets> shoppingcart = new HashMap<>();
         if (session.getAttribute("shoppingcart") != null) {
-
+           // shoppingcart = (HashMap<Fiets, Integer>) session.getAttribute("shoppingcart");
             shoppingcart = (HashMap<Integer, Fiets>) session.getAttribute("shoppingcart");
         }
         shoppingcart.remove(id);
 
-        session.setAttribute("cart", shoppingcart.values());
+        session.setAttribute("shoppingcart", shoppingcart);
 
         response.sendRedirect("Controller?action=BasketOverview");
         return "winkelMandje.jsp";
